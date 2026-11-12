@@ -1,0 +1,61 @@
+@baseUrl = http://localhost:5097
+
+### List all inventory items
+GET {{baseUrl}}/api/inventory
+Accept: application/json
+
+### Get one inventory item
+GET {{baseUrl}}/api/inventory/1
+Accept: application/json
+
+### Get a missing inventory item
+GET {{baseUrl}}/api/inventory/9999
+Accept: application/json
+
+### Create an inventory item
+POST {{baseUrl}}/api/inventory
+Content-Type: application/json
+
+{
+  "name": "USB-C Cable",
+  "sku": "ACC-5010",
+  "categoryName": "Accessories",
+  "quantity": 40,
+  "reorderLevel": 10,
+  "location": "Aisle A · Shelf 4",
+  "unitPrice": 9.99
+}
+
+### Create an item with an existing SKU (expects 409 Conflict)
+POST {{baseUrl}}/api/inventory
+Content-Type: application/json
+
+{
+  "name": "Duplicate SKU Sample",
+  "sku": "ACC-1042",
+  "categoryName": "Accessories",
+  "quantity": 1,
+  "reorderLevel": 1,
+  "location": "Aisle A · Shelf 1",
+  "unitPrice": 5.00
+}
+
+### Update an inventory item
+PUT {{baseUrl}}/api/inventory/1
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "sku": "ACC-1042",
+  "categoryName": "Accessories",
+  "quantity": 52,
+  "reorderLevel": 12,
+  "location": "Aisle A · Shelf 2",
+  "unitPrice": 29.99
+}
+
+### Delete an inventory item
+DELETE {{baseUrl}}/api/inventory/1
+
+### Delete a missing inventory item (expects 404)
+DELETE {{baseUrl}}/api/inventory/9999
